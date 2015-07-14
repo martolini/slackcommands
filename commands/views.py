@@ -6,8 +6,6 @@ from .models import TrelloClient
 
 @csrf_exempt
 def handle_command(request, name):
-	if name not in settings.SLACK_COMMANDS:
-		return HttpResponse("This is not a valid command")
 	if request.POST:
 		text = request.POST.get('text', None)
 		if text is None:
