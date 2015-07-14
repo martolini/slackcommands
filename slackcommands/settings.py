@@ -120,7 +120,7 @@ USE_TZ = True
 #SLACKCOMMANDS
 SLACKCOMMANDS = [
     {
-        'name': 'BUG',
+        'name': 'bug',
         'token': 'nuOXBZMNGMt0yggRZAZCItfp',
     }
 ]
@@ -128,3 +128,35 @@ SLACKCOMMANDS = [
 TRELLO_KEY = '591b45c0cbfe4b611a72e7984a482b9d'
 TRELLO_TOKEN = '1a523d0edbbf19a035aad756719d5398df9c92d4817c22b1487a45dc02ba8371'
 
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': ('%(asctime)s [%(process)d] [%(levelname)s] ' +
+                       'pathname=%(pathname)s lineno=%(lineno)s ' +
+                       'funcname=%(funcName)s %(message)s'),
+            'datefmt': '%Y-%m-%d %H:%M:%S'
+        },
+        'simple': {
+            'format': '%(levelname)s %(message)s'
+        }
+    },
+    'handlers': {
+        'null': {
+            'level': 'DEBUG',
+            'class': 'logging.NullHandler',
+        },
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'formatter': 'verbose'
+        }
+    },
+    'loggers': {
+        'testlogger': {
+            'handlers': ['console'],
+            'level': 'INFO',
+        }
+    }
+}
