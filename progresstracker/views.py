@@ -6,12 +6,10 @@ from .forms import DailyUpdateForm
 @csrf_exempt
 def handle_command(request):
   if request.POST:
-    print request.POST
     form = DailyUpdateForm(request.POST)
     if form.is_valid():
       form.save()
       return HttpResponse("Added your daily update! Thanks :-)")
     else:
-      print form.errors
       return HttpResponse("Could not add your update. Make sure the update is more than 3 characters.")
   return HttpResponse("Say whaat?")

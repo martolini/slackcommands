@@ -1,10 +1,9 @@
 from django.db import models
-from django.conf import settings
 import requests
 
 class TrelloClient(object):
 	listids = {
-		'bug': '54dcd88be020659f6bfacf14', 
+		'bug': '54dcd88be020659f6bfacf14',
 		'ideas': '54d92005365133026da94f95',
 		'features': '54d920076de332204a69e29d'
 	}

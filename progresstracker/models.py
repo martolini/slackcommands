@@ -4,6 +4,7 @@ from django.utils import timezone
 class Team(models.Model):
   id = models.CharField(max_length=20, primary_key=True)
   name = models.CharField(max_length=30)
+  webhook_url = models.URLField(blank=True, null=True)
 
   def __unicode__(self):
     return self.name
@@ -11,7 +12,11 @@ class Team(models.Model):
 class Worker(models.Model):
   id = models.CharField(max_length=20, primary_key=True)
   name = models.CharField(max_length=30)
-  team = models.ForeignKey(Team)
+  team = models.ForeignKey(Team, related_name='workers')
+
+  @property
+  def username(self):
+    return '@' + self.name
 
   def __unicode__(self):
     return self.name
