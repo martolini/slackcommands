@@ -3,7 +3,9 @@ import requests
 import json
 from ...models import Team, DailyUpdate
 from django.utils import timezone
+import re
 from datetime import timedelta
+import time
 
 class Command(BaseCommand):
   help = 'Give out summary'
@@ -16,13 +18,15 @@ class Command(BaseCommand):
         except DailyUpdate.DoesNotExist:
           continue
         if latest.created_at > timezone.now() - timedelta(hours=23):
-          text += '\r\n{} {}'.format(worker.name, latest.text)
+          text += '\r\n\r\n{} {}'.format(worker.username, latest.text)
+          text = re.sub('(@\w+)', lambda m: '<{}>'.format(m.group(1)), text)
       if text:
         payload = {
           "text": 'Today\'s daily update{}'.format(text),
           "channel": team.channel
         }
-        print requests.post(team.webhook_url, data=json.dumps(payload)).text
+        requests.post(team.webhook_url, data=json.dumps(payload))
+        time.sleep(2)
 
 
 
