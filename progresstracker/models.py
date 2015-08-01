@@ -5,6 +5,7 @@ class Team(models.Model):
   id = models.CharField(max_length=20, primary_key=True)
   name = models.CharField(max_length=30)
   webhook_url = models.URLField(blank=True, null=True)
+  channel = models.CharField(max_length=30)
 
   def __unicode__(self):
     return self.name

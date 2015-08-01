@@ -7,4 +7,4 @@ class TeamAdmin(admin.ModelAdmin):
 
 @admin.register(DailyUpdate)
 class DailyUpdateAdmin(admin.ModelAdmin):
-  list_display = ('id', 'created_at')
+  list_display = ('worker', 'created_at')
