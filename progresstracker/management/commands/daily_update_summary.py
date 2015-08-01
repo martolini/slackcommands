@@ -19,10 +19,9 @@ class Command(BaseCommand):
           continue
         if latest.created_at > timezone.now() - timedelta(hours=23):
           text += '\r\n\r\n{} {}'.format(worker.username, latest.text)
-          text = re.sub('(@\w+)', lambda m: '<{}>'.format(m.group(1)), text)
       if text:
         payload = {
-          "text": 'Today\'s daily update{}'.format(text),
+          "text": 'Today\'s daily update{}'.format(re.sub('(@\w+)', lambda m: '<{}>'.format(m.group(1)), text)),
           "channel": team.channel
         }
         requests.post(team.webhook_url, data=json.dumps(payload))
