@@ -44,7 +44,12 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'commands',
     'progresstracker',
+    'djcelery',
 )
+
+CELERYBEAT_SCHEDULER = "djcelery.schedulers.DatabaseScheduler"
+import djcelery
+djcelery.setup_loader()
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -106,13 +111,8 @@ USE_L10N = True
 USE_TZ = True
 
 
-#SLACKCOMMANDS
-SLACKCOMMANDS = [
-    {
-        'name': 'bug',
-        'token': 'nuOXBZMNGMt0yggRZAZCItfp',
-    }
-]
+BROKER_URL = os.environ.get('REDIS_URL', 'redis://localhost:6379/5')
+
 
 TRELLO_KEY = '591b45c0cbfe4b611a72e7984a482b9d'
 TRELLO_TOKEN = '1a523d0edbbf19a035aad756719d5398df9c92d4817c22b1487a45dc02ba8371'
