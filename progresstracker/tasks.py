@@ -43,7 +43,7 @@ def daily_update_summary():
       except DailyUpdate.DoesNotExist:
         continue
       if latest.created_at > timezone.now() - timedelta(hours=23):
-        text += '\r\n\r\n{} {}'.format(worker.username, latest.text)
+        text += '\r\n\r\n{} {}'.format(worker.username, latest.text.encode('utf-8').strip())
     if not text:
       text = '\r\nEverybody took the day off...'
     payload = {
@@ -52,4 +52,4 @@ def daily_update_summary():
     }
     requests.post(team.webhook_url, data=json.dumps(payload))
     time.sleep(2)
-    return True
+  return True
